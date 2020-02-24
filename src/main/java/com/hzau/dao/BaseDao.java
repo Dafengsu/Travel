@@ -1,9 +1,12 @@
 package com.hzau.dao;
 
+import com.hzau.domain.Category;
 import com.hzau.util.JDBCUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import java.util.List;
 
 /**
  * @author su
@@ -20,11 +23,34 @@ public class BaseDao {
      * @param <T>
      * @return
      */
-    public <T> T findOneObject(String sql, Class<T> clazz, Object... args) {
+    public <T> T queryForObject(String sql, Class<T> clazz, Object... args) {
         try {
             return template.queryForObject(sql, new BeanPropertyRowMapper<>(clazz), args);
         } catch (DataAccessException e) {
             return null;
         }
+    }
+
+    /**
+     * 查询多个对象，以list形式返回
+     * @param sql
+     * @param clazz
+     * @param args
+     * @param <T>
+     * @return
+     */
+    public <T> List<T> queryForList(String sql, Class<T> clazz, Object... args) {
+        if (args == null) {
+            return template.query(sql, new BeanPropertyRowMapper<>(clazz));
+        }
+        return template.query(sql, new BeanPropertyRowMapper<>(clazz), args);
+    }
+    /**
+     * 更新
+     * @param sql
+     * @param args
+     */
+    public void update(String sql, Object... args) {
+        template.update(sql, args);
     }
 }

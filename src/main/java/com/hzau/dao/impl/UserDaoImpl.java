@@ -14,7 +14,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     @Override
     public User findByUsername(String username) {
-        return findOneObject(
+        return queryForObject(
                 "SELECT * FROM tab_user where username = ?",
                 User.class, username);
     }
@@ -24,7 +24,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         String sql = "INSERT INTO tab_user " +
                 "(username, password, name, birthday, sex, telephone,email,code,status) " +
                 "VALUES (?,?,?,?,?,?,?,?,?)";
-        template.update(sql, user.getUsername(), user.getPassword(), user.getName(),
+        update(sql, user.getUsername(), user.getPassword(), user.getName(),
                 user.getBirthday(), user.getSex(), user.getTelephone(), user.getEmail(),
                 user.getCode(), user.getStatus());
     }
@@ -37,7 +37,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     @Override
     public User findByCode(String code) {
 
-        return findOneObject(
+        return queryForObject(
                 "SELECT * FROM tab_user WHERE code = ?",
                 User.class, code);
     }
@@ -45,12 +45,12 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     @Override
     public void updateStatus(User user) {
         String sql = "UPDATE tab_user SET status = 'Y' WHERE uid = ?";
-        template.update(sql, user.getUid());
+        update(sql, user.getUid());
     }
 
     @Override
     public User findByUsernameAndPassword(String username, String password) {
-        return findOneObject(
+        return queryForObject(
                 "SELECT * from tab_user WHERE username = ? AND password = ?",
                 User.class, username, password);
     }

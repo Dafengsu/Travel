@@ -3,7 +3,6 @@ package com.hzau.dao.impl;
 import com.hzau.dao.BaseDao;
 import com.hzau.dao.CategoryDao;
 import com.hzau.domain.Category;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 import java.util.List;
 
@@ -16,6 +15,6 @@ public class CategoryDaoImpl extends BaseDao implements CategoryDao {
     @Override
     public List<Category> findAll() {
         String sql = "SELECT * FROM tab_category";
-        return template.query(sql, new BeanPropertyRowMapper<>(Category.class));
+        return queryForList(sql, Category.class);
     }
 }
