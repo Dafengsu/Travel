@@ -4,6 +4,7 @@ import com.hzau.domain.Category;
 import com.hzau.service.CategoryService;
 import com.hzau.service.impl.CategoryServiceImpl;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -14,8 +15,10 @@ import java.util.List;
  * @description
  * @date 2020/2/25
  */
+@WebServlet("/category/*")
 public class CategoryServlet extends BaseServlet {
     private CategoryService service = new CategoryServiceImpl();
+
     /**
      * 查询所有
      *

@@ -1,6 +1,5 @@
 package com.hzau.dao;
 
-import com.hzau.domain.Category;
 import com.hzau.util.JDBCUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

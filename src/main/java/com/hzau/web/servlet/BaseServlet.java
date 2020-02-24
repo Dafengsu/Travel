@@ -27,9 +27,7 @@ public class BaseServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String uri = req.getRequestURI();
-        System.out.println("请求uri:" + uri);
         String methodName = uri.substring(uri.lastIndexOf('/') + 1);
-        System.out.println("方法名称:" + methodName);
         try {
             Method method = this.getClass().getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
             method.invoke(this, req, resp);
