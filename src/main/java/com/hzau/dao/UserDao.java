@@ -20,4 +20,8 @@ public interface UserDao {
      * @param user
      */
     void save(User user);
+
+    User findByCode(String code);
+
+    void updateStatus(User user);
 }
