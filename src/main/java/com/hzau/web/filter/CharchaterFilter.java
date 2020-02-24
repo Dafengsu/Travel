@@ -28,7 +28,7 @@ public class CharchaterFilter implements Filter {
             request.setCharacterEncoding("utf-8");
         }
         //处理响应乱码
-        if (request.getServletPath().contains("Servlet")) {
+        if (request.getServletPath().contains("user")) {
             response.setContentType("text/html;charset=utf-8");
         }
 

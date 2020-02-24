@@ -9,8 +9,6 @@ import com.hzau.service.impl.UserServiceImpl;
  * @date 2020/2/24
  */
 public interface UserService {
-    UserService instance = new UserServiceImpl();
-
     /**
      * 注册用户
      * @param user
@@ -19,4 +17,6 @@ public interface UserService {
     boolean register(User user);
 
     boolean active(String code);
+
+    User login(User user);
 }

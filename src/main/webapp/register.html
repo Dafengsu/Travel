@@ -24,7 +24,7 @@
 
 			//校验用户名
 			function checkUsername() {
-				return checkByRegE($("#username"),/^\w{8,20}$/);
+				return checkByRegE($("#username"),/^\w{2,20}$/);
 			}
 			//校验密码
 			function checkPassword() {
@@ -36,7 +36,7 @@
 			}
 			//校验姓名
 			function checkName() {
-				return checkByRegE($("#name"),/^\w{2,20}$/)
+				return checkByRegE($("#name"),/^([a-zA-Z0-9\u4e00-\u9fa5\·]{1,10})$/)
 			}
 			//校验电话
 			function checkTelephone() {
@@ -61,7 +61,7 @@
 					if (checkUsername() && checkPassword() && checkEmail()
 							&& checkName() && checkTelephone() && checkSex()
 							&& checkBirthday() && checkCheckCode()) {
-						$.post("registerUserServlet", $(this).serialize(), function (data) {
+						$.post("user/register", $(this).serialize(), function (data) {
 							if (data.flag) {
 								location.href = "register_ok.html";
 							} else {

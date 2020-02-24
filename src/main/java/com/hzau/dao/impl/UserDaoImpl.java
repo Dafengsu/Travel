@@ -3,8 +3,7 @@ package com.hzau.dao.impl;
 import com.hzau.dao.UserDao;
 import com.hzau.domain.User;
 import com.hzau.util.JDBCUtils;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import com.hzau.util.LocalBeanUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -17,13 +16,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findByUsername(String username) {
-        try {
-            String sql = "SELECT * FROM tab_user where username = ?";
-            return template.queryForObject(sql,
-                    new BeanPropertyRowMapper<>(User.class), username);
-        } catch (Exception e) {
-            return null;
-        }
+        return LocalBeanUtils.findOneObject(template,
+                "SELECT * FROM tab_user where username = ?",
+                User.class, username);
     }
 
     @Override
@@ -43,18 +38,22 @@ public class UserDaoImpl implements UserDao {
      */
     @Override
     public User findByCode(String code) {
-        try {
-            String sql = "SELECT * FROM tab_user WHERE code = ?";
-           return template.queryForObject(sql,
-                   new BeanPropertyRowMapper<>(User.class), code);
-        } catch (DataAccessException e) {
-            return null;
-        }
+
+        return LocalBeanUtils.findOneObject(template,
+                "SELECT * FROM tab_user WHERE code = ?",
+                User.class, code);
     }
 
     @Override
     public void updateStatus(User user) {
         String sql = "UPDATE tab_user SET status = 'Y' WHERE uid = ?";
         template.update(sql, user.getUid());
+    }
+
+    @Override
+    public User findByUsernameAndPassword(String username, String password) {
+        return LocalBeanUtils.findOneObject(template,
+                "SELECT * from tab_user WHERE username = ? AND password = ?",
+                User.class, username, password);
     }
 }

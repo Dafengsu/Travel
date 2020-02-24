@@ -19,6 +19,27 @@
 	<script src="http://apps.bdimg.com/libs/angular.js/1.7.8/angular.min.js"></script>
 	<!--导入jquery-->
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script>
+		$(function () {
+			//1.给登录按钮绑定单击事件
+			$("#btn_sub").click(function () {
+				$.post("user/login", $("#loginForm").serialize(), function (data) {
+					if (data.flag) {
+						location.href = "index.html";
+					} else {
+						$("#errorMsg").html(data.errorMsg);
+					}
+
+				});
+
+			});
+			//2.发送ajax请求发送表单数据
+
+			//3.处理结果
+
+		});
+
+	</script>
 </head>
 
 <body>
@@ -53,7 +74,7 @@
 					</script>
 			</div>
 			<div class="submit_btn">
-        				<button type="button">登录</button>
+        				<button type="button" id="btn_sub">登录</button>
         				<div class="auto_login">
         					<input type="checkbox" name="" class="checkbox">
         					<span>自动登录</span>
