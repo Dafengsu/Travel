@@ -3,7 +3,7 @@ package com.hzau.dao.impl;
 import com.hzau.dao.UserDao;
 import com.hzau.domain.User;
 import com.hzau.util.JDBCUtils;
-import com.hzau.util.LocalBeanUtils;
+import com.hzau.util.LocalUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -16,7 +16,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findByUsername(String username) {
-        return LocalBeanUtils.findOneObject(template,
+        return LocalUtils.findOneObject(template,
                 "SELECT * FROM tab_user where username = ?",
                 User.class, username);
     }
@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User findByCode(String code) {
 
-        return LocalBeanUtils.findOneObject(template,
+        return LocalUtils.findOneObject(template,
                 "SELECT * FROM tab_user WHERE code = ?",
                 User.class, code);
     }
@@ -52,7 +52,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findByUsernameAndPassword(String username, String password) {
-        return LocalBeanUtils.findOneObject(template,
+        return LocalUtils.findOneObject(template,
                 "SELECT * from tab_user WHERE username = ? AND password = ?",
                 User.class, username, password);
     }

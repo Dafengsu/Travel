@@ -17,7 +17,7 @@ import java.util.Map;
  * @description
  * @date 2020/2/20
  */
-public class LocalBeanUtils {
+public class LocalUtils {
 
 
     /**
