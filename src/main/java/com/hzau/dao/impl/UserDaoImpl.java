@@ -1,9 +1,9 @@
 package com.hzau.dao.impl;
 
+import com.hzau.dao.BaseDao;
 import com.hzau.dao.UserDao;
 import com.hzau.domain.User;
 import com.hzau.util.JDBCUtils;
-import com.hzau.util.LocalUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -11,12 +11,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @description
  * @date 2020/2/24
  */
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends BaseDao implements UserDao {
     private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
 
     @Override
     public User findByUsername(String username) {
-        return LocalUtils.findOneObject(template,
+        return findOneObject(template,
                 "SELECT * FROM tab_user where username = ?",
                 User.class, username);
     }
@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User findByCode(String code) {
 
-        return LocalUtils.findOneObject(template,
+        return findOneObject(template,
                 "SELECT * FROM tab_user WHERE code = ?",
                 User.class, code);
     }
@@ -52,7 +52,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findByUsernameAndPassword(String username, String password) {
-        return LocalUtils.findOneObject(template,
+        return findOneObject(template,
                 "SELECT * from tab_user WHERE username = ? AND password = ?",
                 User.class, username, password);
     }

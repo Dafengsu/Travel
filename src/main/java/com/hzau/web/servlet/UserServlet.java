@@ -4,7 +4,6 @@ import com.hzau.domain.ResultInfo;
 import com.hzau.domain.User;
 import com.hzau.service.UserService;
 import com.hzau.service.impl.UserServiceImpl;
-import com.hzau.util.LocalUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,7 +39,7 @@ public class UserServlet extends BaseServlet {
         ResultInfo info = new ResultInfo();
         if (check.equalsIgnoreCase(checkcode_server)) {
             //获取数据，封装对象
-            User user = LocalUtils.beanUserByReq(request, User.class);
+            User user = beanUserByReq(request, User.class);
             //调用service,响应结果
             if (service.register(user)) {
                 info.setFlag(true);
@@ -53,7 +52,7 @@ public class UserServlet extends BaseServlet {
             info.setErrorMsg("验证码错误");
         }
         //将对象转化为Json并写回客户端
-        LocalUtils.sendObjectAsJson(info, response);
+        sendObjectAsJson(info, response);
     }
 
     /**
@@ -65,7 +64,7 @@ public class UserServlet extends BaseServlet {
      */
     public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //将用户名和密码封装成User对象
-        User user = LocalUtils.beanUserByReq(request, User.class);
+        User user = beanUserByReq(request, User.class);
         //调用service查询
         User u = service.login(user);
         ResultInfo info = new ResultInfo();
@@ -80,7 +79,7 @@ public class UserServlet extends BaseServlet {
             request.getSession().setAttribute("user", u);
         }
 
-        LocalUtils.sendObjectAsJson(info, response);
+        sendObjectAsJson(info, response);
     }
 
     /**
@@ -92,7 +91,7 @@ public class UserServlet extends BaseServlet {
      */
     public void findOne(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Object user = request.getSession().getAttribute("user");
-        LocalUtils.sendObjectAsJson(user, response);
+        sendObjectAsJson(user, response);
     }
 
     /**
