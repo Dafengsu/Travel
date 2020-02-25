@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class BaseDao {
     protected JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
+
     /**
      * sql查询一个对象，并返回封装对象
      * @param sql
@@ -22,7 +23,7 @@ public class BaseDao {
      * @param <T>
      * @return
      */
-    public <T> T queryForObject(String sql, Class<T> clazz, Object... args) {
+    public <T> T queryForObjectByRowMapper(String sql, Class<T> clazz, Object... args) {
         try {
             return template.queryForObject(sql, new BeanPropertyRowMapper<>(clazz), args);
         } catch (DataAccessException e) {
@@ -30,6 +31,13 @@ public class BaseDao {
         }
     }
 
+    public <T> T queryForObjectByRequireType(String sql, Class<T> clazz, Object... args) {
+        try {
+            return template.queryForObject(sql, clazz, args);
+        } catch (DataAccessException e) {
+            return null;
+        }
+    }
     /**
      * 查询多个对象，以list形式返回
      * @param sql

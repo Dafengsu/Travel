@@ -14,7 +14,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     @Override
     public User findByUsername(String username) {
-        return queryForObject(
+        return queryForObjectByRowMapper(
                 "SELECT * FROM tab_user where username = ?",
                 User.class, username);
     }
@@ -37,7 +37,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     @Override
     public User findByCode(String code) {
 
-        return queryForObject(
+        return queryForObjectByRowMapper(
                 "SELECT * FROM tab_user WHERE code = ?",
                 User.class, code);
     }
@@ -50,7 +50,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     @Override
     public User findByUsernameAndPassword(String username, String password) {
-        return queryForObject(
+        return queryForObjectByRowMapper(
                 "SELECT * from tab_user WHERE username = ? AND password = ?",
                 User.class, username, password);
     }
