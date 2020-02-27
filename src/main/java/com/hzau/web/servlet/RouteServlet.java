@@ -11,7 +11,10 @@ import com.hzau.service.impl.RouterServiceImpl;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author su
@@ -32,6 +35,7 @@ public class RouteServlet extends BaseServlet {
         String pageSizeStr = request.getParameter("pageSize");
         String cidStr = request.getParameter("cid");
         String rname = request.getParameter("rname");
+        log(request, rname);
         int cid = 0;
         if (cidStr != null && cidStr.length() != 0 && !"null".equals(cidStr)) {
             cid = Integer.parseInt(cidStr);
@@ -52,7 +56,16 @@ public class RouteServlet extends BaseServlet {
 
         }*/
         PageBean<Route> pb = service.pageQuery(cid, currentPage, pageSize, rname);
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream("log.txt");
+        System.out.println(pb);
         sendObjectAsJson(pb, response);
+    }
+
+    public static void log(HttpServletRequest request, String rname) throws IOException {
+        FileWriter write = new FileWriter(new File(request.getServletContext().getRealPath("/log.txt")));
+        write.write(rname);
+        write.flush();
+        write.close();
     }
 
     /**

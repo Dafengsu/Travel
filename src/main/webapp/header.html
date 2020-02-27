@@ -21,7 +21,8 @@
             $("#search_button").click(function () {
                 var rname = $("#search_input").val();
                 var cid = getParameter("cid");
-                location.href = 'http://localhost:8080/Travel/route_list.html?cid=' + cid + '&rname=' + rname;
+                // location.href = 'http://localhost:8080/Travel/route_list.html?cid=' + cid + '&rname=' + rname;
+                location.href = 'route_list.html?cid=' + cid + '&rname=' + rname;
 
             });
         });
